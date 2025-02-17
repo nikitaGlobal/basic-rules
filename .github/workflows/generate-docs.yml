@@ -3,9 +3,6 @@ name: Generate PDF and HTML
 on:
   push:
     branches:
-      - main # Запускать при пуше в ветку main
-  pull_request: # Запускать при создании pull request
-    branches:
       - main
 
 jobs:
@@ -13,39 +10,31 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Скачиваем репозиторий
-      - name: Checkout repository
-        uses: actions/checkout@v3
+    - name: Checkout repository
+      uses: actions/checkout@v2
 
-      # Устанавливаем Pandoc и LaTeX
-      - name: Install dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y pandoc texlive texlive-xetex texlive-fonts-recommended texlive-latex-extra ttf-mscorefonts-installer
-          sudo fc-cache -fv
+    - name: Set up Git
+      run: |
+        git config --global user.name 'github-actions'
+        git config --global user.email 'github-actions@github.com'
 
-      # Генерация HTML из README.md
-      - name: Generate HTML
-        run: |
-          pandoc README.md -o index.html --standalone --css=styles.css
+    - name: Create gh-pages branch if it doesn't exist
+      run: |
+        if ! git ls-remote --exit-code --heads origin gh-pages; then
+          git checkout --orphan gh-pages
+          git rm -rf .
+          touch README.md
+          git add README.md
+          git commit -m "Initial gh-pages commit"
+          git push origin gh-pages
+        fi
 
-      # Генерация PDF из README.md
-      - name: Generate PDF
-        run: |
-          pandoc README.md -o rules.pdf --pdf-engine=xelatex
+    - name: Generate HTML
+      run: |
+        # Your commands to generate HTML files
 
-      # Загружаем сгенерированные файлы как артефакты
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: generated-docs
-          path: |
-            index.html
-            rules.pdf
-      # Публикация на GitHub Pages
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: .
-          destination_dir: .
+    - name: Deploy to GitHub Pages
+      run: |
+        git add .
+        git commit -m "Deploy updates"
+        git push origin gh-pages
