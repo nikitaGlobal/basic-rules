@@ -10,13 +10,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Set up GitHub token
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}
+
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Install dependencies
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y pandoc texlive texlive-xetex texlive-fonts-recommended texlive-latex-extra
+    
+#     -name: Install dependencies
+#      run: |
+#        sudo apt-get update
+#        sudo apt-get install -y pandoc texlive texlive-xetex texlive-fonts-recommended texlive-latex-extra
 
     - name: Set up Git
       run: |
@@ -39,7 +46,7 @@ jobs:
 
     - name: Generate HTML
       run: |
-          pandoc README.md -o index.html --standalone --css=styles.css
+#          pandoc README.md -o index.html --standalone --css=styles.css
 
     - name: Configure GitHub token
       env:
