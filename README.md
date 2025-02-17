@@ -3,7 +3,7 @@ title: "Порядок оказания услуг по созданию Сай�
 date: "2025-02-17"
 geometry: a4paper
 fontsize: 12pt
-mainfont: "Times New Roman"
+mainfont: "Liberation Serif"
 header-includes:
   - \usepackage{fancyhdr}
   - \pagestyle{fancy}
