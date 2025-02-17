@@ -45,7 +45,7 @@ jobs:
 
     - name: Generate HTML
       run: |
-#          pandoc README.md -o index.html --standalone --css=styles.css
+          pandoc README.md -o index.html --standalone --css=styles.css
 
     - name: Set up GitHub token
       env:
