@@ -36,5 +36,5 @@ jobs:
     - name: Deploy to GitHub Pages
       run: |
         git add .
-        git commit -m "Deploy updates"
+        git commit -m "Deploy updates" --allow-empty
         git push origin gh-pages
