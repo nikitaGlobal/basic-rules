@@ -1,7 +1,8 @@
 body {
     font-family: Arial, sans-serif;
     line-height: 1.6;
-    margin: 20px;
+    width: 60px;
+    margin: auto;
     background-color: #f9f9f9;
     color: #333;
 }
