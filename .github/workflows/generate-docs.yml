@@ -23,7 +23,7 @@ jobs:
         git config --global user.name 'github-actions'
         git config --global user.email 'github-actions@github.com'
 
-    - name: Create gh-pages branch if it doesn't exist
+    - name: Create or update gh-pages branch
       run: |
         if ! git ls-remote --exit-code --heads origin gh-pages; then
           git checkout --orphan gh-pages
@@ -33,6 +33,7 @@ jobs:
           git commit -m "Initial gh-pages commit"
           git push origin gh-pages
         else
+          git fetch origin gh-pages:gh-pages
           git checkout gh-pages
         fi
 
