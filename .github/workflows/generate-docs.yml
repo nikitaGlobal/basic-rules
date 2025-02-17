@@ -13,6 +13,11 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y pandoc texlive texlive-xetex texlive-fonts-recommended texlive-latex-extra
+
     - name: Set up Git
       run: |
         git config --global user.name 'github-actions'
@@ -33,11 +38,9 @@ jobs:
 
     - name: Generate HTML
       run: |
-        # Your commands to generate HTML files
-
+          pandoc README.md -o index.html --standalone --css=styles.css
     - name: Deploy to GitHub Pages
       run: |
-        git checkout -b gh-pages
         git add .
         git commit -m "Deploy updates" --allow-empty
         git push origin gh-pages
