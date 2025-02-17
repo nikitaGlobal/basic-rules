@@ -27,6 +27,8 @@ jobs:
           git add README.md
           git commit -m "Initial gh-pages commit"
           git push origin gh-pages
+        else
+          git checkout gh-pages
         fi
 
     - name: Generate HTML
@@ -35,6 +37,7 @@ jobs:
 
     - name: Deploy to GitHub Pages
       run: |
+        git checkout -b gh-pages
         git add .
         git commit -m "Deploy updates" --allow-empty
         git push origin gh-pages
