@@ -54,7 +54,7 @@ jobs:
     
     - name: Generate PDF
       run: |
-          pandoc README.md -o rules.pdf --pdf-engine=xelatex
+          pandoc --verbose README.md -o rules.pdf --pdf-engine=xelatex
 
     - name: Set up GitHub token
       env:
