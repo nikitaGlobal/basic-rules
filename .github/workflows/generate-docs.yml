@@ -32,10 +32,7 @@ jobs:
       run: |
         if ! git ls-remote --exit-code --heads origin gh-pages; then
           git checkout --orphan gh-pages
-          git rm -rf .
-          touch README.md
-          git add README.md
-          git commit -m "Initial gh-pages commit"
+          git commit -m --allow-empty "Initial gh-pages commit"
           git push origin gh-pages
         else
           git fetch origin gh-pages:gh-pages
@@ -67,6 +64,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         git add .
+        git checkout main ./*
         git add -f index.html
         git add -f rules.pdf
         md5sum index.html rules.pdf
