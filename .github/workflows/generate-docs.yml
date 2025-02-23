@@ -40,7 +40,6 @@ jobs:
         else
           git fetch origin gh-pages:gh-pages
           git checkout gh-pages
-          git merge main
         fi
 
     - name: Set up GitHub token
