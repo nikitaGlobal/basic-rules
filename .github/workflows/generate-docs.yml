@@ -67,7 +67,9 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         git add .
-        git add index.html
-        git add rules.pdf
+        git add -f index.html
+        git add -f rules.pdf
+        md5sum index.html rules.pdf
+        git add -f style.css
         git commit -m "Deploy updates"
         git push origin gh-pages
